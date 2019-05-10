@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Graph Class</title>
+    <script src="graphClass.js"></script>
+    <style>
+        #div1
+        {
+            position:absolute;
+            top:25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <script>
+
+        let graph = new Graph("div1");
+        graph.drawCS();
+        
+        window.addEventListener('resize', 
+        function(){
+            graph.onResize();
+        });
+        
+    </script>
+</body>
+</html>
