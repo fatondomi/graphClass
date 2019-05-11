@@ -1,31 +1,42 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <title>Graph Class</title>
     <script src="graphClass.js"></script>
+    
     <style>
         #div1
         {
-            position:absolute;
-            top:25%;
-            left: 25%;
-            width: 50%;
-            height: 50%;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
         }
     </style>
 </head>
+
 <body>
-    <div id="div1"></div>
+    <div id="div1" 
+        onwheel="graph.onWheel(event);"
+        onmousemove="graph.onMouseMove(event);"
+        onmousedown="graph.onMouseDown();"
+        onmouseup="graph.onMouseUp();"
+        onmouseenter="graph.onMouseEnter();"
+        onmouseleave="graph.onMouseLeave();"
+        >
+    </div>
+
     <script>
 
         let graph = new Graph("div1");
         graph.drawCS();
         
-        window.addEventListener('resize', 
-        function(){
-            graph.onResize();
-        });
-        
+        window.onresize= function() { graph.onResize(); };
+    
     </script>
 </body>
+
 </html>
