@@ -22,8 +22,10 @@
     <div id="div1"></div>
 
     <script>
-        //              Graph(divId,show cordinates or not);
-        let graph = new Graph("div1",true);
+        let somePoints = [[0,0],[1,1],[-1,1],[-1,-1],[1,-1]];
+        //              Graph(divId,pointsArray,drawCords)
+        let graph = new Graph("div1",somePoints,true);
+
         let cDiv = document.getElementById("div1");
         cDiv.addEventListener("wheel",function(){graph.onWheel(event);});
         cDiv.addEventListener("mousemove",function(){graph.onMouseMove(event);});
@@ -33,15 +35,14 @@
         window.addEventListener("resize",function(){graph.onResize();});
 
         /*
-        add event listeners as above or put the code below inside the opening div tag
-        onwheel="graph.onWheel(event);"
-        onmousemove="graph.onMouseMove(event);"
-        onmousedown="graph.onMouseDown();"
-        onmouseup="graph.onMouseUp();"
-        onmouseenter="graph.onMouseEnter();"
-        onmouseleave="graph.onMouseLeave();"
+            use the above addEventListeners or add the code below to the opening div tag 
+            onwheel="graph.onWheel(event);"
+            onmousemove="graph.onMouseMove(event);"
+            onmousedown="graph.onMouseDown();"
+            onmouseup="graph.onMouseUp();"
+            onmouseenter="graph.onMouseEnter();"
+            onmouseleave="graph.onMouseLeave();"
         */
-
     </script>
 </body>
 

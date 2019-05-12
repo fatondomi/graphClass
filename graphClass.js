@@ -1,11 +1,13 @@
 
 class Graph
 {
-    constructor(divIdString,drawCordsBool) 
+    constructor(divIdString,pointsArray,drawCordsBool) 
     {
         let cDiv = document.getElementById(divIdString);
         this.divId = divIdString;
         this.id = divIdString + "canvas";
+
+        (pointsArray == null)? (this.points = []) : (this.points = pointsArray);
 
         this.width = cDiv.clientWidth;          //width of canvas
         this.halfWidth = cDiv.clientWidth / 2;    // for simplyfining calc. 
@@ -21,7 +23,8 @@ class Graph
         this.cSoXprev = this.cSoX;  //previous cordinate system offset in x
         this.cSoYprev = this.cSoY;  //previous cordinate system offset in y
 
-        this.drawCords = drawCordsBool;     //should  X: (value mouse on) Y:...     be drawn
+        //should  X: (value mouse on) Y: ...     be drawn
+        (drawCordsBool == null)? (this.drawCords = false) : (this.drawCords = drawCordsBool);     
         this.mouseX = 0;    //mouse x position over canvas
         this.mouseY = 0;    //mouse y position over canvas
         this.panX = 0;      // how much was panned in X while dragging mouse
@@ -55,7 +58,8 @@ class Graph
         let ctx = c.getContext("2d");
         
         ctx.clearRect(0,0,this.width,this.height);
-
+        
+        ctx.fillStyle = "black";
         ctx.font = "16px Arial";//thirret vetem kete here me posht vlera e saj ruhet
 
         let count = 1;//used for drawing numbers in the for loops below
@@ -196,8 +200,22 @@ class Graph
             }
         }
 
+        if(this.points.length>0)
+        {
+            let pointHolder = [];
+            for(let i=0;i<this.points.length;i++)
+            {
+                pointHolder = this.convert(this.points[i]);
+                ctx.beginPath();
+                ctx.fillStyle = "red";
+                ctx.arc(pointHolder[0], pointHolder[1], 4, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
         if(this.drawCords)
         {
+            ctx.fillStyle = "black";
             let xCord = (Math.floor(((this.mouseX / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100);
             let yCord = (Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100);
             let xBwidth = 58 + this.numDigitsOver(xCord) * 9;
@@ -374,6 +392,15 @@ class Graph
         c.setAttribute("width", this.width);
         c.setAttribute("height",this.height);
         this.drawCS();
+    }
+    
+    convert(pointArray)
+    {
+        let newPoint = [
+            (this.width /  2) + this.cSoX + (pointArray[0] * ((77 + this.zoom * 7) / this.graphUnit)),
+            (this.height / 2) - this.cSoY - (pointArray[1] * ((77 + this.zoom * 7) / this.graphUnit))
+        ];
+        return newPoint;
     }
 
     drawLine(in_x, in_y, in_length, in_angle, in_color, in_width)
