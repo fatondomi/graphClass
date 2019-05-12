@@ -1,19 +1,19 @@
 
 class Graph
 {
-    constructor(divIdString) 
+    constructor(divIdString,drawCordsBool) 
     {
         let cDiv = document.getElementById(divIdString);
         this.divId = divIdString;
-        this.id = divIdString+"canvas";
+        this.id = divIdString + "canvas";
 
         this.width = cDiv.clientWidth;          //width of canvas
-        this.halfWidth = cDiv.clientWidth/2;    // for simplyfining calc. 
+        this.halfWidth = cDiv.clientWidth / 2;    // for simplyfining calc. 
         this.height = cDiv.clientHeight;        //height of canvas
-        this.halfHeight = cDiv.clientHeight/2;  // for simplyfining calc.
+        this.halfHeight = cDiv.clientHeight / 2;  // for simplyfining calc.
 
-        this.gDimX = cDiv.clientWidth/2 + 100; // dimension of x axix (from zero to max X)
-        this.gDimY = cDiv.clientHeight/2 + 100; // dimension of y axis (from zero to max Y)
+        this.gDimX = cDiv.clientWidth /  2 + 100; // dimension of x axix (from zero to max X)
+        this.gDimY = cDiv.clientHeight / 2 + 100; // dimension of y axis (from zero to max Y)
         // add 100 px more to be sure that we fill the div completely
 
         this.cSoX = 0;  //cordinate system offset in x
@@ -21,6 +21,7 @@ class Graph
         this.cSoXprev = this.cSoX;  //previous cordinate system offset in x
         this.cSoYprev = this.cSoY;  //previous cordinate system offset in y
 
+        this.drawCords = drawCordsBool;     //should  X: (value mouse on) Y:...     be drawn
         this.mouseX = 0;    //mouse x position over canvas
         this.mouseY = 0;    //mouse y position over canvas
         this.panX = 0;      // how much was panned in X while dragging mouse
@@ -45,6 +46,7 @@ class Graph
         newCanvas.setAttribute("height",cDiv.clientHeight);
 
         cDiv.appendChild(newCanvas);
+        this.drawCS();
     }
     
     drawCS()
@@ -193,6 +195,21 @@ class Graph
                 count--;
             }
         }
+
+        if(this.drawCords)
+        {
+            let xCord = (Math.floor(((this.mouseX / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100);
+            let yCord = (Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100);
+            let xBwidth = 58 + this.numDigitsOver(xCord) * 9;
+            let yBwidth = 58 + this.numDigitsOver(yCord) * 9;
+            (xCord < 0)? (xBwidth += 4) : 0;
+            (yCord < 0)? (yBwidth += 4) : 0;
+            (xBwidth < yBwidth)? (xBwidth = yBwidth):0;
+            ctx.clearRect(31,31,xBwidth,48);
+            //ctx.font = "16px Arial";
+            ctx.fillText("X : "+(Math.floor(((this.mouseX / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 50);
+            ctx.fillText("Y : "+(Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 70);
+        }
     }
 
     onWheel(e)
@@ -282,6 +299,25 @@ class Graph
             this.cSoX = this.cSoXprev + this.mouseX - this.panX; 
             this.cSoY = this.cSoYprev + this.mouseY - this.panY;
             this.drawCS();
+        }
+        else
+        {
+            if(this.drawCords)
+            {
+                let c = document.getElementById(this.id);
+                let ctx = c.getContext("2d");
+                let xCord = (Math.floor(((this.mouseX / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100);
+                let yCord = (Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100);
+                let xBwidth = 58 + this.numDigitsOver(xCord) * 9;
+                let yBwidth = 58 + this.numDigitsOver(yCord) * 9;
+                (xCord < 0)? (xBwidth += 4) : 0;
+                (yCord < 0)? (yBwidth += 4) : 0;
+                (xBwidth < yBwidth)? (xBwidth = yBwidth):0;
+                ctx.clearRect(31,31,xBwidth,48);
+                //ctx.font = "16px Arial";
+                ctx.fillText("X : "+(Math.floor(((this.mouseX / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 50);
+                ctx.fillText("Y : "+(Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 70);
+            }
         }
     }
 

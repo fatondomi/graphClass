@@ -19,23 +19,29 @@
 </head>
 
 <body>
-    <div id="div1" 
+    <div id="div1"></div>
+
+    <script>
+        //              Graph(divId,show cordinates or not);
+        let graph = new Graph("div1",true);
+        let cDiv = document.getElementById("div1");
+        cDiv.addEventListener("wheel",function(){graph.onWheel(event);});
+        cDiv.addEventListener("mousemove",function(){graph.onMouseMove(event);});
+        cDiv.addEventListener("mousedown",function(){graph.onMouseDown();});
+        cDiv.addEventListener("mouseup",function(){graph.onMouseUp();});
+        cDiv.addEventListener("mouseenter",function(){graph.onMouseEnter();});
+        window.addEventListener("resize",function(){graph.onResize();});
+
+        /*
+        add event listeners as above or put the code below inside the opening div tag
         onwheel="graph.onWheel(event);"
         onmousemove="graph.onMouseMove(event);"
         onmousedown="graph.onMouseDown();"
         onmouseup="graph.onMouseUp();"
         onmouseenter="graph.onMouseEnter();"
         onmouseleave="graph.onMouseLeave();"
-        >
-    </div>
+        */
 
-    <script>
-
-        let graph = new Graph("div1");
-        graph.drawCS();
-        
-        window.onresize= function() { graph.onResize(); };
-    
     </script>
 </body>
 
