@@ -40,7 +40,8 @@ class Graph
         this.zoomInS = 0;   // another form of zoomInC to simplify calc.
         this.zScrollBreak = 12; // scroll increments before multiplying units
 
-
+        this.callBackFun;
+        
         //newCanvas.setAttribute("width",x); != newCanvas.style.width = x;
 
         let newCanvas = document.createElement("canvas");
@@ -213,7 +214,9 @@ class Graph
                 ctx.stroke();
             }
         }
-
+        
+        if(this.callBackFun != null) { this.callBackFun(); }
+        
         if(this.drawCords)
         {
             ctx.fillStyle = "black";
@@ -230,7 +233,13 @@ class Graph
             ctx.fillText("Y : "+(Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 70);
         }
     }
-
+    
+    callBackDrawing(funx)
+    {   
+        this.callBackFun = funx;
+        this.drawCS();
+    }
+    
     onWheel(e)
     {
         //zooming section
