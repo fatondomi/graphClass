@@ -43,6 +43,20 @@
             onmouseenter="graph.onMouseEnter();"
             onmouseleave="graph.onMouseLeave();"
         */
+        
+        graph.callBackDrawing(
+            function () {
+                let c = document.getElementById("div1canvas");
+                let ctx = c.getContext("2d");
+
+                let fP = graph.convert([0.8,1.2]);
+                let sP = graph.convert([1.2,0.8]);
+                ctx.strokeStyle = "black";
+                ctx.beginPath();
+                ctx.rect(fP[0],fP[1],sP[0]-fP[0],sP[1]-fP[1]);
+                ctx.stroke();
+            }
+        );
     </script>
 </body>
 
