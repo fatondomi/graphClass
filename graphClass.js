@@ -207,9 +207,10 @@ class Graph
             {
                 pointHolder = this.convert(this.points[i]);
                 ctx.beginPath();
-                ctx.fillStyle = "red";
-                ctx.arc(pointHolder[0], pointHolder[1], 4, 0, 2 * Math.PI);
-                ctx.fill();
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 2;
+                ctx.arc(pointHolder[0], pointHolder[1], 3, 0, 2 * Math.PI);
+                ctx.stroke();
             }
         }
 
