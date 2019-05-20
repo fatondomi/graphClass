@@ -441,7 +441,21 @@ class Graph
     rotatePoint(in_x, in_y, in_angle) 
     {
         let module = Math.sqrt(Math.pow(in_x, 2) + Math.pow(in_y, 2));
-        let angle = Math.atan(in_y / in_x);
+        let angle = 0;
+        
+        if(in_x >= 0)
+        {
+            angle = Math.atan(in_y / in_x);
+        }
+        else if(in_y >= 0)
+        {
+            angle = Math.PI - Math.atan(in_y / (- in_x));
+        }
+        else
+        {
+            angle = Math.PI + Math.atan((- in_y) / (- in_x));
+        }
+        
         angle += in_angle * Math.PI / 180;
         return [module * Math.cos(angle),module * Math.sin(angle)];
     }
