@@ -1,0 +1,100 @@
+
+let carPos = [1,1];
+let carDir = 45;
+
+function drawCar()
+{
+    let c = document.getElementById("div1canvas");
+    let ctx = c.getContext("2d");
+
+    // green body
+    let p1 = graph.convert(graph.rotatePoint(carPos[0] - 3.5, carPos[1] + 11, carDir));
+    let p2 = graph.convert(graph.rotatePoint(carPos[0] + 3.5, carPos[1] + 11, carDir));
+    let p3 = graph.convert(graph.rotatePoint(carPos[0] + 3.5, carPos[1] - 10, carDir));
+    let p4 = graph.convert(graph.rotatePoint(carPos[0] - 3.5, carPos[1] - 10, carDir));
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0,255,0,0.4)";
+    ctx.moveTo(p1[0],p1[1]);
+    ctx.lineTo(p2[0],p2[1]);
+    ctx.lineTo(p3[0],p3[1]);
+    ctx.lineTo(p4[0],p4[1]);
+    ctx.closePath();
+    ctx.fill();
+
+    // black front left tire
+    p1 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] + 10, carDir));
+    p2 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] + 10, carDir));
+    p3 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] + 6, carDir));
+    p4 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] + 6, carDir));
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.moveTo(p1[0],p1[1]);
+    ctx.lineTo(p2[0],p2[1]);
+    ctx.lineTo(p3[0],p3[1]);
+    ctx.lineTo(p4[0],p4[1]);
+    ctx.closePath();
+    ctx.fill();
+    
+    // black front right tire
+    p1 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] + 10, carDir));
+    p2 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] + 10, carDir));
+    p3 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] + 6, carDir));
+    p4 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] + 6, carDir));
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.moveTo(p1[0],p1[1]);
+    ctx.lineTo(p2[0],p2[1]);
+    ctx.lineTo(p3[0],p3[1]);
+    ctx.lineTo(p4[0],p4[1]);
+    ctx.closePath();
+    ctx.fill();
+
+    // black back left tire
+    p1 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] - 5, carDir));
+    p2 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] - 5, carDir));
+    p3 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] - 9, carDir));
+    p4 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] - 9, carDir));
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.moveTo(p1[0],p1[1]);
+    ctx.lineTo(p2[0],p2[1]);
+    ctx.lineTo(p3[0],p3[1]);
+    ctx.lineTo(p4[0],p4[1]);
+    ctx.closePath();
+    ctx.fill();
+
+    // black back right tire
+    p1 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] - 5, carDir));
+    p2 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] - 5, carDir));
+    p3 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] - 9, carDir));
+    p4 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] - 9, carDir));
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.moveTo(p1[0],p1[1]);
+    ctx.lineTo(p2[0],p2[1]);
+    ctx.lineTo(p3[0],p3[1]);
+    ctx.lineTo(p4[0],p4[1]);
+    ctx.closePath();
+    ctx.fill();
+}
+
+let points = [
+                [-50,0],
+                [-50,5],
+                [50, 0],
+                [50, 5]
+];
+
+let graph = new Graph("div1",points);
+
+window.onresize = function(){graph.onResize();};
+
+//
+
+graph.callBackDrawing(
+    function () {
+        drawCar();
+    }
+);
+
+graph.focus();
