@@ -1,6 +1,6 @@
 
-let carPos = [1,1];
-let carDir = 45;
+let carPos = [20,20];
+let carDir = -45;
 
 function drawCar()
 {
@@ -8,10 +8,14 @@ function drawCar()
     let ctx = c.getContext("2d");
 
     // green body
-    let p1 = graph.convert(graph.rotatePoint(carPos[0] - 3.5, carPos[1] + 11, carDir));
-    let p2 = graph.convert(graph.rotatePoint(carPos[0] + 3.5, carPos[1] + 11, carDir));
-    let p3 = graph.convert(graph.rotatePoint(carPos[0] + 3.5, carPos[1] - 10, carDir));
-    let p4 = graph.convert(graph.rotatePoint(carPos[0] - 3.5, carPos[1] - 10, carDir));
+    let newPt = graph.rotatePoint(- 3.5,11,carDir);
+    let p1 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(3.5,11,carDir);
+    let p2 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(3.5,-10,carDir);
+    let p3 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-3.5,-10,carDir);
+    let p4 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
     ctx.beginPath();
     ctx.fillStyle = "rgba(0,255,0,0.4)";
     ctx.moveTo(p1[0],p1[1]);
@@ -22,10 +26,14 @@ function drawCar()
     ctx.fill();
 
     // black front left tire
-    p1 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] + 10, carDir));
-    p2 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] + 10, carDir));
-    p3 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] + 6, carDir));
-    p4 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] + 6, carDir));
+    newPt = graph.rotatePoint(-7,10,carDir);
+    p1 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-5,10,carDir);
+    p2 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-5,6,carDir);
+    p3 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-7,6,carDir);
+    p4 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
     ctx.beginPath();
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.moveTo(p1[0],p1[1]);
@@ -36,10 +44,14 @@ function drawCar()
     ctx.fill();
     
     // black front right tire
-    p1 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] + 10, carDir));
-    p2 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] + 10, carDir));
-    p3 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] + 6, carDir));
-    p4 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] + 6, carDir));
+    newPt = graph.rotatePoint(5,10,carDir);
+    p1 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(7,10,carDir);
+    p2 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(7,6,carDir);
+    p3 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(5,6,carDir);
+    p4 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
     ctx.beginPath();
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.moveTo(p1[0],p1[1]);
@@ -50,10 +62,14 @@ function drawCar()
     ctx.fill();
 
     // black back left tire
-    p1 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] - 5, carDir));
-    p2 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] - 5, carDir));
-    p3 = graph.convert(graph.rotatePoint(carPos[0] - 5, carPos[1] - 9, carDir));
-    p4 = graph.convert(graph.rotatePoint(carPos[0] - 7, carPos[1] - 9, carDir));
+    newPt = graph.rotatePoint(-7,-5,carDir);
+    p1 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-5,-5,carDir);
+    p2 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-5,-9,carDir);
+    p3 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(-7,-9,carDir);
+    p4 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
     ctx.beginPath();
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.moveTo(p1[0],p1[1]);
@@ -64,10 +80,14 @@ function drawCar()
     ctx.fill();
 
     // black back right tire
-    p1 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] - 5, carDir));
-    p2 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] - 5, carDir));
-    p3 = graph.convert(graph.rotatePoint(carPos[0] + 5, carPos[1] - 9, carDir));
-    p4 = graph.convert(graph.rotatePoint(carPos[0] + 7, carPos[1] - 9, carDir));
+    newPt = graph.rotatePoint(7,-5,carDir);
+    p1 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(5,-5,carDir);
+    p2 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(5,-9,carDir);
+    p3 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
+    newPt = graph.rotatePoint(7,-9,carDir);
+    p4 = graph.convert([newPt[0] + carPos[0], newPt[1] + carPos[1]]);
     ctx.beginPath();
     ctx.fillStyle = "rgba(0,0,0,0.4)";
     ctx.moveTo(p1[0],p1[1]);
