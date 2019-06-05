@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Graph Class</title>
+    <script src="graphClass.js"></script>
+    
+    <style>
+        body{
+            margin: 0%;
+            overflow: hidden;
+        }
+        #div1
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1"
+    onwheel="graph.onWheel(event);"
+    onmousemove="graph.onMouseMove(event);"
+    onmousedown="graph.onMouseDown();"
+    onmouseup="graph.onMouseUp();"
+    onmouseenter="graph.onMouseEnter();"
+    onmouseleave="graph.onMouseLeave();"></div>
+
+    <script src="setup.js"></script>
+</body>
+
+</html>
