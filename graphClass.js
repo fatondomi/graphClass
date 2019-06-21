@@ -1,11 +1,11 @@
 
 class Graph
 {
-    constructor(divIdString,pointsArray,drawCordsBool) 
+    constructor(divIdString, pointsArray, drawCordsBool) 
     {
         let cDiv = document.getElementById(divIdString);
         this.divId = divIdString;
-        this.id = divIdString + "canvas";
+        this.id = divIdString + "Canvas";
 
         (pointsArray == null)? (this.points = []) : (this.points = pointsArray);
 
@@ -41,13 +41,13 @@ class Graph
         this.zScrollBreak = 12; // scroll increments before multiplying units
 
         this.callBackFun;
-        
+
         //newCanvas.setAttribute("width",x); != newCanvas.style.width = x;
 
         let newCanvas = document.createElement("canvas");
-        newCanvas.setAttribute("id",divIdString+"canvas");
-        newCanvas.setAttribute("width",cDiv.clientWidth); 
-        newCanvas.setAttribute("height",cDiv.clientHeight);
+        newCanvas.setAttribute("id", divIdString + "Canvas");
+        newCanvas.setAttribute("width", cDiv.clientWidth); 
+        newCanvas.setAttribute("height", cDiv.clientHeight);
 
         cDiv.appendChild(newCanvas);
         this.drawCS();
@@ -201,10 +201,10 @@ class Graph
             }
         }
 
-        if(this.points.length>0)
+        if(this.points.length > 0)
         {
             let pointHolder = [];
-            for(let i=0;i<this.points.length;i++)
+            for(let i = 0; i < this.points.length; i++)
             {
                 pointHolder = this.convert(this.points[i]);
                 ctx.beginPath();
@@ -214,9 +214,9 @@ class Graph
                 ctx.stroke();
             }
         }
-        
+
         if(this.callBackFun != null) { this.callBackFun(); }
-        
+
         if(this.drawCords)
         {
             ctx.fillStyle = "black";
@@ -226,20 +226,55 @@ class Graph
             let yBwidth = 58 + this.numDigitsOver(yCord) * 9;
             (xCord < 0)? (xBwidth += 4) : 0;
             (yCord < 0)? (yBwidth += 4) : 0;
-            (xBwidth < yBwidth)? (xBwidth = yBwidth):0;
-            ctx.clearRect(31,31,xBwidth,48);
+            (xBwidth < yBwidth)? (xBwidth = yBwidth) : 0;
+            ctx.clearRect(31, 31, xBwidth, 48);
             //ctx.font = "16px Arial";
             ctx.fillText("X : "+(Math.floor(((this.mouseX / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 50);
             ctx.fillText("Y : "+(Math.floor(((this.mouseY / (77 + 7 * this.zoom)) * this.graphUnit) * 100) / 100), 34, 70);
         }
     }
-    
+
     callBackDrawing(funx)
     {   
         this.callBackFun = funx;
         this.drawCS();
     }
-    
+
+    focus()
+    {
+        let outerDia = 0;
+        let innerDia = 0;
+        let upperPt = 0;
+        let lowerPt = 0;
+
+        this.points.forEach(element => {
+            outerDia = (outerDia < element[0])? element[0] : outerDia;
+            innerDia = (innerDia > element[0])? element[0] : innerDia;
+            upperPt = (upperPt < element[1])? element[1] : upperPt;
+            lowerPt = (lowerPt > element[1])? element[1] : lowerPt;
+        });
+
+        let pointRangeX = outerDia - innerDia;
+        let pointRangeY = upperPt - lowerPt;
+        let units2 = 1;
+        let unitsMultiplier2 = 1;
+
+        while((units2 * 12) < pointRangeX || (units2 * 8) < pointRangeY)
+        {
+            if(unitsMultiplier2 == 1) { units2 *= 2; unitsMultiplier2 = 2; }
+            else if(unitsMultiplier2 == 2) { units2 *= 5; units2 /= 2; unitsMultiplier2 = 2.5; }
+            else{ units2 *= 2; unitsMultiplier2 = 1; }
+        }
+        
+        this.cSoX = -(((outerDia + innerDia) / 2) / units2) * (77 + this.zoom * 7);
+        this.cSoXprev = this.cSoX;
+        this.cSoY = -(((upperPt + lowerPt) / 2) / units2)*(77 + this.zoom * 7);
+        this.cSoYprev = this.cSoY;
+        this.graphUnit = units2;
+
+        this.drawCS();
+    }
+
     onWheel(e)
     {
         //zooming section
@@ -309,7 +344,7 @@ class Graph
         this.drawCS();
 
         //refreshing mouse position //there is a need to since we changed offsets
-        this.mouseX =   e.pageX - (window.innerWidth  / 2) -  this.cSoXprev;
+        this.mouseX =   e.pageX - (window.innerWidth  / 2) - this.cSoXprev;
         this.mouseY = -(e.pageY - (window.innerHeight / 2)) - this.cSoYprev;
     }
 
@@ -442,7 +477,6 @@ class Graph
     {
         let module = Math.sqrt(Math.pow(in_x, 2) + Math.pow(in_y, 2));
         let angle = 0;
-        
         if(in_x >= 0)
         {
             angle = Math.atan(in_y / in_x);
@@ -455,8 +489,7 @@ class Graph
         {
             angle = Math.PI + Math.atan((- in_y) / (- in_x));
         }
-        
-        angle += in_angle * Math.PI / 180;
-        return [module * Math.cos(angle),module * Math.sin(angle)];
+        angle += (in_angle * Math.PI / 180);
+        return [ module * Math.cos(angle), module * Math.sin(angle) ];
     }
 }
