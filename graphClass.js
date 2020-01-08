@@ -7,7 +7,7 @@ class Graph
         this.divId = divIdString;
         this.id = divIdString + "Canvas";
 
-        (pointsArray == null)? (this.points = []) : (this.points = pointsArray);
+        this.points = (pointsArray)? pointsArray : [];
 
         this.width = cDiv.clientWidth;          //width of canvas
         this.halfWidth = cDiv.clientWidth / 2;    // for simplyfining calc. 
